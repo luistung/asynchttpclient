@@ -37,9 +37,10 @@ class Null:
 
 
 class RequestObject:
-    def __init__(self, url=None, data=None):
+    def __init__(self, url=None, data=None, ext={}):
         self.url = url
         self.data = data
+        self.ext = ext
 
 
 class AsyncHttpClient():
@@ -98,7 +99,7 @@ class AsyncHttpClient():
                 futureList = list(pending)
                 if not self.finish:
                     futureList = futureList + \
-                        self.producer(session, self.thread - len(pending))
+                        self.producer(session, reqObjIter, self.thread - len(pending))
                 if not futureList:
                     return
 
